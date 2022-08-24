@@ -7,18 +7,22 @@ public abstract class Vehicle {
     private String color;
     private int model;
     private BigDecimal price;
-    private String type;
+    private VehicleTypeEnum type;
     private String version;
     private double weight;
 
     public Vehicle() {
     }
 
+    public Vehicle(BigDecimal price){
+        this.price = price;
+    }
+
     public Vehicle(int capacidad,
             String color,
             int model,
             BigDecimal price,
-            String type,
+            VehicleTypeEnum type,
             String version,
             double weight) {
                 this.capacity = capacidad;
@@ -62,11 +66,11 @@ public abstract class Vehicle {
         this.price = price;
     }
 
-    public String getType() {
+    public VehicleTypeEnum getType() {
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(VehicleTypeEnum type) {
         this.type = type;
     }
 
@@ -98,4 +102,13 @@ public abstract class Vehicle {
             ", weight='" + getWeight() + "'" +
             "}";
     }
+
+    public abstract int getMaxVelocity();
+
+    public abstract Long getMaxLoadWeight();
+
+    public void start(){
+        System.out.println("El vehiculo esta arrancando");
+    }
+    
 }

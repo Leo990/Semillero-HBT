@@ -17,7 +17,7 @@ public class Boat extends Vehicle{
     String color,
     int model,
     BigDecimal price,
-    String type,
+    VehicleTypeEnum type,
     String version,
     double weight) {
         super(capacity, color, model, price, type, version, weight);
@@ -70,6 +70,18 @@ public class Boat extends Vehicle{
             ", density='" + getDensity() + "'" +
             ", finalHarbor='" + getFinalHarbor() + "'" +
             "}" + super.toString();
+    }
+
+    @Override
+    public int getMaxVelocity() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public Long getMaxLoadWeight() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }
