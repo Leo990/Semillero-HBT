@@ -2,10 +2,15 @@ package com.hbt.semillero.poo;
 
 import java.math.BigDecimal;
 
+import org.apache.log4j.*;
+
 public class Car extends Vehicle implements ITypeVehicle{
+
+    private final static Logger LOGGER = Logger.getLogger(Car.class);
 
     public Car(){
         super();
+        BasicConfigurator.configure();
     }
 
     public Car(BigDecimal price){
@@ -42,6 +47,7 @@ public class Car extends Vehicle implements ITypeVehicle{
             vehicleTypeEnum.getType() + ").");
             return true;
         }else {
+            LOGGER.info("Se ha presentado un error");
             throw new Exception("El tipo de vehiculo asignado es erroneo, debe ser: " +
             VehicleTypeEnum.TERRESTRE.getType());
         }
