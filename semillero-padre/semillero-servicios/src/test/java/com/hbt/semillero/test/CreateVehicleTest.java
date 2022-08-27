@@ -1,13 +1,17 @@
 package com.hbt.semillero.test;
 
-import static org.junit.Assert.*;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import java.math.BigDecimal;
 
-import org.apache.log4j.*;
-import org.junit.*;
 
 import com.hbt.semillero.poo.Car;
 import com.hbt.semillero.poo.VehicleTypeEnum;
