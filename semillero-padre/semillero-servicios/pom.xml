@@ -88,7 +88,14 @@
 			<groupId>org.hibernate</groupId> 
 				<artifactId>hibernate-core</artifactId> 
 			<version>5.2.12.Final</version> 
-		</dependency> 
+		</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.24</version>
+				<scope>provided</scope>
+			</dependency>
+		
 
 	</dependencies>
 </project>
