@@ -41,11 +41,11 @@ public class SemilleroJPQLRest {
 	 */
 	private final static Logger LOG = Logger.getLogger(SemilleroJPQLRest.class);
 
-	@PersistenceContext
+	@PersistenceContext(name="semillero")
 	private EntityManager em;
 
 	@GET
-	@Path("/test")
+	@Path("/test")	
 	@Produces(MediaType.APPLICATION_JSON)
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	@SuppressWarnings("unchecked")

@@ -20,6 +20,10 @@ public class ComicDTO {
 	private EstadoEnum estado;
 	private short cantidad;
 
+    public ComicDTO(){
+
+    }
+
     public ComicDTO(String nombre, EstadoEnum estado, BigDecimal precio) {
 		this.nombre = nombre;
 		this.estado = estado;

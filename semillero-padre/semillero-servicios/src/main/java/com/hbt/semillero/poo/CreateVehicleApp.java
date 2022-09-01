@@ -8,17 +8,12 @@ import java.util.Map;
 
 public class CreateVehicleApp {
 
-    private static final BigDecimal SMLV = new BigDecimal(100000);
-	private static final String VELOCIDAD_MAXIMA = "Velocidad maxima:";
+    private static final String VELOCIDAD_MAXIMA = "Velocidad maxima:";
     public static void main(String[] args) {
         Vehicle mazda = new Car(new BigDecimal(105));
 		//BigDecimal valorPrecio = new BigDecimal(105);
 
 		//mazda.setPrecio(new BigDecimal(105));
-
-		Long valor1 = 100L;
-		Float valor2 = 100F;
-		Double valor3 = 100D;
 
         Vehicle kia = new Car(2022, "red", 2022, new BigDecimal(110), VehicleTypeEnum.TERRESTRE, "1.0", 1000D);
 		
