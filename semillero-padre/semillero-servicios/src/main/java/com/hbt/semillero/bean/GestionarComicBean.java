@@ -31,12 +31,11 @@ public class GestionarComicBean implements IGestionarComicLocal {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public ConsultarNombrePrecioComicDTO consultarNombrePrecio(Long idComic) {
-        // TODO Auto-generated method stub
         LOGGER.info("Inicia operacion consultarNombrePrecio()");
         ConsultarNombrePrecioComicDTO dto = new ConsultarNombrePrecioComicDTO();
         String consultaNombrePrecioComic = "SELECT new com.hbt.semillero.dtos.ConsultarNombrePrecioComicDTO(nombre, precio) "
-        + "FROM Comic "
-        + "WHERE id = :idComic";
+                + "FROM Comic "
+                + "WHERE id = :idComic";
         try {
             Query queryConsultaNombrePrecioComic = em.createQuery(consultaNombrePrecioComic);
             queryConsultaNombrePrecioComic.setParameter("idComic", idComic);
@@ -44,7 +43,6 @@ public class GestionarComicBean implements IGestionarComicLocal {
             dto.setExitoso(true);
             dto.setMensajeEjecucion("Se ha ejecutado exitosamente");
         } catch (NonUniqueResultException e) {
-            // TODO: handle exception
             LOGGER.info("Se ha presentado NonResultUniqueException" + e.getMessage());
             dto.setExitoso(false);
             dto.setMensajeEjecucion("Existen registros duplicados para el id " + idComic);
@@ -64,8 +62,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ResultadoDTO crearComic(ComicDTO comicDTO) throws Exception {
-        // TODO Auto-generated method stub
-        if(comicDTO.getNombre().equals(null)){
+        if (comicDTO.getNombre().equals(null)) {
             throw new Exception("el campo nombre es requerido");
         }
 
@@ -78,21 +75,72 @@ public class GestionarComicBean implements IGestionarComicLocal {
         return resultado;
     }
 
-    private Comic convertirComicDTOToComic(ComicDTO comicDTO){
+    @Override
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public ResultadoDTO actualizarComic(Long idComic, ComicDTO comicDTO) {
+        // String actualizarComic = "UPDATE Comic c SET c.estadoEnum = :estadoEnum "
+        // + " WHERE c.id = :idComic ";
+        // Query queryActualizarComic = em.createQuery(actualizarComic);
+        // queryActualizarComic.setParameter("estadoEnum", EstadoEnum.NO_DISPONIBLE);
+        // queryActualizarComic.setParameter("idComic", idComic);
+        // int recordsUpdate = queryActualizarComic.executeUpdate();
+
+        ResultadoDTO resultado = new ResultadoDTO();
+        try {
+            Comic comic = em.find(Comic.class, idComic);
+            comic.setNombre(comicDTO.getNombre());
+            comic.setEstado(comicDTO.getEstado());
+            comic.setPrecio(comicDTO.getPrecio());
+            em.merge(comic);
+            resultado.setExitoso(true);
+            resultado.setMensajeEjecucion("El comic ha sido actualizado exitosamente");
+        } catch (Exception e) {
+            resultado.setExitoso(false);
+            resultado.setMensajeEjecucion(e.getMessage());
+            LOGGER.info("Se ha presentado un error tecnico " + e.getMessage());
+        }
+
+        return resultado;
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public ResultadoDTO eliminarComic(Long idComic) {
+        // TODO Auto-generated method stub
+        ResultadoDTO resultado = new ResultadoDTO();
+        try {
+            String eliminarComics = "DELETE FROM Comic  "
+                    + " WHERE id IN ( :idComic ) ";
+            Query queryEliminarComics = em.createQuery(eliminarComics);
+            queryEliminarComics.setParameter("idComic", idComic);
+            int records = queryEliminarComics.executeUpdate();
+            resultado.setExitoso(true);
+            resultado.setMensajeEjecucion("Se han elminado " + records + "registros.");
+        } catch (Exception e) {
+            // TODO: handle exception
+            resultado.setExitoso(false);
+            resultado.setMensajeEjecucion(e.getMessage());
+            LOGGER.info("Ha ocurrido un error tecnico" + e.getMessage());
+
+        }
+        return null;
+    }
+
+    private Comic convertirComicDTOToComic(ComicDTO comicDTO) {
         Comic comic = new Comic();
         Comic.builder()
-        .id(comicDTO.getId())
-        .nombre(comicDTO.getNombre())
-        .editorial(comicDTO.getEditorial())
-        .tematica(comicDTO.getTematica())
-        .coleccion(comicDTO.getColeccion())
-        .numeroDePaginas(comicDTO.getNumeroDePaginas())
-        .precio(comicDTO.getPrecio())
-        .autores(comicDTO.getAutores())
-        .color(comicDTO.getColor())
-        .fechaVenta(comicDTO.getFechaVenta())
-        .estado(comicDTO.getEstado())
-        .cantidad(comicDTO.getCantidad());
+                .id(comicDTO.getId())
+                .nombre(comicDTO.getNombre())
+                .editorial(comicDTO.getEditorial())
+                .tematica(comicDTO.getTematica())
+                .coleccion(comicDTO.getColeccion())
+                .numeroDePaginas(comicDTO.getNumeroDePaginas())
+                .precio(comicDTO.getPrecio())
+                .autores(comicDTO.getAutores())
+                .color(comicDTO.getColor())
+                .fechaVenta(comicDTO.getFechaVenta())
+                .estado(comicDTO.getEstado())
+                .cantidad(comicDTO.getCantidad());
 
         return comic;
     }

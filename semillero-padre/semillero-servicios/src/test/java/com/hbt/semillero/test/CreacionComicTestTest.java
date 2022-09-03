@@ -2,15 +2,12 @@ package com.hbt.semillero.test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
-
-import org.hibernate.type.descriptor.java.LocalDateJavaDescriptor;
 import org.junit.Before;
 import org.junit.Test;
 

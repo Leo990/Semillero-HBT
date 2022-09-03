@@ -1,6 +1,8 @@
-package com.hbt.semillero.poo;
+package com.hbt.semillero.poo.abstracts;
 
 import java.math.BigDecimal;
+
+import com.hbt.semillero.poo.enums.VehicleTypeEnum;
 
 public abstract class Vehicle {
     private int capacity;

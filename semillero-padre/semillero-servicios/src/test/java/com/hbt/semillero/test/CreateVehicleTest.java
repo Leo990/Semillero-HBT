@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 
 import com.hbt.semillero.poo.Car;
-import com.hbt.semillero.poo.VehicleTypeEnum;
+import com.hbt.semillero.poo.enums.VehicleTypeEnum;
 
 public class CreateVehicleTest {
     private final static Logger LOGGER = Logger.getLogger(CreateVehicleTest.class);

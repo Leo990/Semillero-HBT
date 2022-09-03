@@ -1,4 +1,4 @@
-package com.hbt.semillero.poo;
+package com.hbt.semillero.poo.enums;
 
 public enum VehicleTypeEnum {
     TERRESTRE("Terrestre", 1),

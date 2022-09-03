@@ -7,4 +7,6 @@ import com.hbt.semillero.dtos.ResultadoDTO;
 public interface IGestionarComicLocal {
     ConsultarNombrePrecioComicDTO consultarNombrePrecio(Long idComic);
     public ResultadoDTO crearComic(ComicDTO comic) throws Exception;
+    public ResultadoDTO actualizarComic(Long idComic, ComicDTO comic);
+    public ResultadoDTO eliminarComic(Long idComic);
 }

@@ -3,8 +3,6 @@
  */
 package com.hbt.semillero.rest;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -21,9 +19,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
-
-import com.hbt.semillero.dtos.ComicDTO;
-import com.hbt.semillero.entity.Comic;
 
 /**
  * <b>Descripción:<b> Clase que determina
@@ -48,13 +43,12 @@ public class SemilleroJPQLRest {
 	@Path("/test")	
 	@Produces(MediaType.APPLICATION_JSON)
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	@SuppressWarnings("unchecked")
 	public String generarOperacionComic() {
 		LOG.info("Se ejecuta generarOperacionComic()");
-		Comic comic = null;
-
+		
 		try {
 			// Obtencion de un registro de la tabla comic haciendo uso del metodo find de la clase EntityManager
+			//Comic comic = null;
 			// SELECT * FROM COMIC WHERE ID = 15;
 //			comic = em.find(Comic.class, 19L);
 //			LOG.info("DATA COMIC" + comic.toString());
@@ -194,7 +188,7 @@ public class SemilleroJPQLRest {
 					  + " WHERE c.SCID=:idComic";
 			Query queryNativo = em.createNativeQuery(consultaNative);
 			queryNativo.setParameter("idComic", 21L);
-			Object[] data = (Object[]) queryNativo.getSingleResult();
+			//Object[] data = (Object[]) queryNativo.getSingleResult();
 			
 			//Paginacion por base datos
 			String consultaPaginada = "SELECT new com.hbt.semillero.dtos.ComicDTO( c.nombre, c.estadoEnum, c.precio ) "
@@ -203,7 +197,7 @@ public class SemilleroJPQLRest {
 			Query queryPaginado = em.createQuery(consultaPaginada);
 			queryPaginado.setFirstResult(1);
 			queryPaginado.setMaxResults(3);
-			List<ComicDTO> comicsDTO =  queryPaginado.getResultList();
+			//List<ComicDTO> comicsDTO =  queryPaginado.getResultList();
 			
 			// Consulta estructurada como nativa del motor las conocidas nativeQuery
 			// Consulta estructurada como nativa del motor las conocidas nativeQuery

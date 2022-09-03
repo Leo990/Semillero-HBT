@@ -1,4 +1,6 @@
-package com.hbt.semillero.poo;
+package com.hbt.semillero.poo.interfaces;
+
+import com.hbt.semillero.poo.enums.VehicleTypeEnum;
 
 public interface ITypeVehicle {
     public boolean defineTypeOfVehicle(VehicleTypeEnum vehicleTypeEnum) throws Exception;

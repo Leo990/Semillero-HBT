@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hbt.semillero.poo.abstracts.Vehicle;
+import com.hbt.semillero.poo.enums.VehicleTypeEnum;
+
 public class CreateVehicleApp {
 
     private static final String VELOCIDAD_MAXIMA = "Velocidad maxima:";

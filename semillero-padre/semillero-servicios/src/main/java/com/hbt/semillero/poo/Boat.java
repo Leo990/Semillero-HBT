@@ -2,6 +2,9 @@ package com.hbt.semillero.poo;
 
 import java.math.BigDecimal;
 
+import com.hbt.semillero.poo.abstracts.Vehicle;
+import com.hbt.semillero.poo.enums.VehicleTypeEnum;
+
 public class Boat extends Vehicle{
 
     private int numberOfSails;
@@ -74,13 +77,11 @@ public class Boat extends Vehicle{
 
     @Override
     public int getMaxVelocity() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public Long getMaxLoadWeight() {
-        // TODO Auto-generated method stub
         return null;
     }
     

@@ -13,7 +13,6 @@ public class JsonUtils {
         try {
             return new ObjectMapper().readValue(arg, claseDTO);
         } catch (Exception e) {
-            // TODO: handle exception
             return null;
         }
     }
@@ -22,7 +21,6 @@ public class JsonUtils {
         try {
             return new  ObjectMapper().writeValueAsString(dto);
         } catch (JsonProcessingException e) {
-            // TODO: handle exception
             return null;
         }
     }
