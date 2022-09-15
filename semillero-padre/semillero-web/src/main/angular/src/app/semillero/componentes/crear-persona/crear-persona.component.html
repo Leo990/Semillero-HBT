@@ -1,0 +1,14 @@
+<p>crear-persona works!</p>
+
+<h1>{{ 'titulo' | translate : saludo2 }}</h1>
+<h1 translate [translateParams]="{mensaje: saludo2.mensaje}">titulo</h1>
+
+<p>{{ comics | json }}</p>
+
+<p>{{ imagen | json }}</p>
+
+<label>Ingrese el path de la imagen:</label>
+<input id="pathImagen" type="text" class="form-control-plaintext" [(ngModel)]="imagen.url">
+
+
+<img [src]="imagen.url" name="urlImagen" [height]="imagen.heigth" [width]="imagen.width" (click)="mostrarDescripcionImagen()">

@@ -1,6 +1,7 @@
 package com.hbt.semillero.poo;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +83,7 @@ public class CreateVehicleApp {
 		mapaVehiculos.put("japon",mazda);
 		
 		System.out.println(mapaVehiculos.get("china"));
+		System.out.println(LocalDate.now());
     }
     
 }

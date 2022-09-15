@@ -1,0 +1,35 @@
+<div class="container">
+    <form [formGroup]="gestionarCompraComicForm">
+        
+        <div class="row">
+            <div class="col-6">
+                <p>Proceso de compra para el comic con id {{idComic}}</p>
+            </div>
+            <div class="col-6">
+                <label for="numberCantidad">Cantidad de comics a comprar</label>
+                <input id="numberCantidad" type="number" class="form-control" maxlength="3" formControlName="cantidad"
+                    [ngClass]="{ 'is-invalid' : gestionarCompraComicForm.invalid || gestionarCompraComicForm.touched}">
+                <div *ngIf="gestionarCompraComicForm.invalid || gestionarCompraComicForm.touched">
+                    <span class="text-danger" *ngIf="f.editorial.errors.required">Campo requerido</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="alert alert-danger" role="alert" *ngIf="isInCorrect">{{this.mensajeEjecucion}}</div>
+                <div class="alert alert-success" *ngIf="!isInCorrect">{{this.mensajeEjecucion}}</div>
+            </div>
+            <div class="col-6">
+                <span></span>
+            </div>
+            <div class="col-3 text-right ">
+                <button type="button" class="btn btn-primary" (click)="comprarComic()">Crear</button>
+            </div>
+            <div class="col-3 text-right ">
+                <button type="button" class="btn btn-primary" (click)="regresar()">Regresar</button>
+            </div>
+        </div>
+
+    </form>
+</div>

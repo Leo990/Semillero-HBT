@@ -1,5 +1,8 @@
 package com.hbt.semillero.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -14,6 +17,7 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 
 import com.hbt.semillero.dtos.ComicDTO;
+import com.hbt.semillero.dtos.ComicRequiredDTO;
 import com.hbt.semillero.dtos.ConsultarNombrePrecioComicDTO;
 import com.hbt.semillero.dtos.ResultadoDTO;
 import com.hbt.semillero.entity.Comic;
@@ -61,12 +65,12 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public ResultadoDTO crearComic(ComicDTO comicDTO) throws Exception {
+    public ResultadoDTO crearComic(ComicRequiredDTO comicDTO) throws Exception {
         if (comicDTO.getNombre().equals(null)) {
             throw new Exception("el campo nombre es requerido");
         }
 
-        Comic comic = this.convertirComicDTOToComic(comicDTO);
+        Comic comic = convertirComicRequiredDTOToComic(comicDTO);
         em.persist(comic);
 
         ResultadoDTO resultado = new ResultadoDTO();
@@ -76,7 +80,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public ResultadoDTO actualizarComic(Long idComic, ComicDTO comicDTO) {
         // String actualizarComic = "UPDATE Comic c SET c.estadoEnum = :estadoEnum "
         // + " WHERE c.id = :idComic ";
@@ -104,45 +108,84 @@ public class GestionarComicBean implements IGestionarComicLocal {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public ResultadoDTO eliminarComic(Long idComic) {
-        // TODO Auto-generated method stub
         ResultadoDTO resultado = new ResultadoDTO();
         try {
-            String eliminarComics = "DELETE FROM Comic  "
-                    + " WHERE id IN ( :idComic ) ";
+            String eliminarComics = "DELETE FROM Comic c WHERE c.id = :idComic";
             Query queryEliminarComics = em.createQuery(eliminarComics);
             queryEliminarComics.setParameter("idComic", idComic);
             int records = queryEliminarComics.executeUpdate();
             resultado.setExitoso(true);
             resultado.setMensajeEjecucion("Se han elminado " + records + "registros.");
         } catch (Exception e) {
-            // TODO: handle exception
             resultado.setExitoso(false);
             resultado.setMensajeEjecucion(e.getMessage());
             LOGGER.info("Ha ocurrido un error tecnico" + e.getMessage());
 
         }
-        return null;
+        return resultado;
     }
 
-    private Comic convertirComicDTOToComic(ComicDTO comicDTO) {
-        Comic comic = new Comic();
-        Comic.builder()
-                .id(comicDTO.getId())
+    @SuppressWarnings("unchecked")
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<ComicDTO> obtenerComics() {
+		List<Comic> comicsDB = new ArrayList<>();
+		List<ComicDTO> comics = new ArrayList<>();
+		String consultaComics = "SELECT c FROM Comic c";
+		try {
+			Query queryConsultaComics = em.createQuery(consultaComics);
+			comicsDB = queryConsultaComics.getResultList();
+			if(comicsDB.isEmpty()) {
+				ComicDTO dto = new ComicDTO();
+				dto.setExitoso(Boolean.FALSE);
+				dto.setMensajeEjecucion("No existen comics");
+				comics.add(dto);
+				return comics;
+			}
+			
+			for (Comic comic : comicsDB) {
+				comics.add(this.convertirComicToComicDTO(comic));
+			}
+			comics.get(0).setExitoso(Boolean.TRUE);
+			comics.get(0).setMensajeEjecucion("Se ha ejecutado exitosamente");
+		} catch (Exception e) {
+			ComicDTO dto = new ComicDTO();
+			dto.setExitoso(Boolean.FALSE);
+			dto.setMensajeEjecucion("Se ha presentado un error tecnico");
+			comics.add(dto);
+			LOGGER.info("Se ha presentado un error tecnico " + e.getMessage());
+		}
+		return comics;
+	}
+
+    private Comic convertirComicRequiredDTOToComic(ComicRequiredDTO comicDTO) {
+        Comic comic = Comic.builder()
                 .nombre(comicDTO.getNombre())
                 .editorial(comicDTO.getEditorial())
-                .tematica(comicDTO.getTematica())
                 .coleccion(comicDTO.getColeccion())
                 .numeroDePaginas(comicDTO.getNumeroDePaginas())
                 .precio(comicDTO.getPrecio())
-                .autores(comicDTO.getAutores())
-                .color(comicDTO.getColor())
-                .fechaVenta(comicDTO.getFechaVenta())
-                .estado(comicDTO.getEstado())
-                .cantidad(comicDTO.getCantidad());
-
+                .cantidad(comicDTO.getCantidad()).build();
         return comic;
     }
+
+    private ComicDTO convertirComicToComicDTO(Comic comic) {
+		ComicDTO dto = new ComicDTO();
+		dto.setId(comic.getId());
+		dto.setNombre(comic.getNombre());
+		dto.setEditorial(comic.getEditorial());
+		dto.setTematica(comic.getTematica());
+		dto.setColeccion(comic.getColeccion());
+		dto.setNumeroDePaginas(comic.getNumeroDePaginas());
+		dto.setPrecio(comic.getPrecio());
+		dto.setAutores(comic.getAutores());
+		dto.setColor(comic.getColor());
+		dto.setFechaVenta(comic.getFechaVenta());
+		dto.setEstado(comic.getEstado());
+		dto.setCantidad(comic.getCantidad());
+		return dto;
+	}
 
 }

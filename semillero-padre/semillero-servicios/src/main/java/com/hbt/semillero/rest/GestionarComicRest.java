@@ -1,5 +1,7 @@
 package com.hbt.semillero.rest;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -12,6 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.hbt.semillero.dtos.ComicDTO;
+import com.hbt.semillero.dtos.ComicRequiredDTO;
 import com.hbt.semillero.dtos.ConsultarNombrePrecioComicDTO;
 import com.hbt.semillero.dtos.ResultadoDTO;
 import com.hbt.semillero.poo.interfaces.IGestionarComicLocal;
@@ -34,13 +37,13 @@ public class GestionarComicRest {
     @Path("/agregarComic")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResultadoDTO crearComic(ComicDTO comicDTO){
+    public ResultadoDTO crearComic(ComicRequiredDTO comicDTO){
         ResultadoDTO resultadoDTO = new ResultadoDTO();
 
         try {
             resultadoDTO = this.gestionarComicLocal.crearComic(comicDTO);
         } catch (Exception e) {
-            resultadoDTO.setExitoso(true);
+            resultadoDTO.setExitoso(false);
             resultadoDTO.setMensajeEjecucion(e.getMessage());
         }
 
@@ -62,5 +65,13 @@ public class GestionarComicRest {
     public ResultadoDTO eliminarComic(@QueryParam("idComic") Long idComic){
         return this.gestionarComicLocal.eliminarComic(idComic);
     }
+
+    @GET
+	@Path("/obtenerComics")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ComicDTO> obtenerComics() {
+		return this.gestionarComicLocal.obtenerComics();
+	}
 
 }

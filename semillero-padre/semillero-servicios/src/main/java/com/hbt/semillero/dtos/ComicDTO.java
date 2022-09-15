@@ -6,30 +6,47 @@ import java.time.LocalDate;
 import com.hbt.semillero.enums.EstadoEnum;
 import com.hbt.semillero.enums.TematicaEnum;
 
-public class ComicDTO {
-	private Long id;
-	private String nombre;
-	private TematicaEnum tematica;
-	private Boolean color;
-	private LocalDate fechaVenta;
-	private String editorial;
-	private String coleccion;
-	private short numeroDePaginas;
-	private BigDecimal precio;
-	private String autores;
-	private EstadoEnum estado;
-	private short cantidad;
+public class ComicDTO  extends ResultadoDTO{
+    private Long id;
+    private String nombre;
+    private TematicaEnum tematica;
+    private Boolean color;
+    private LocalDate fechaVenta;
+    private String editorial;
+    private String coleccion;
+    private short numeroDePaginas;
+    private BigDecimal precio;
+    private String autores;
+    private EstadoEnum estado;
+    private short cantidad;
 
-    public ComicDTO(){
+    public ComicDTO() {
 
     }
 
+    public ComicDTO(
+            String nombre, TematicaEnum tematica, Boolean color, LocalDate fechaVenta, String editorial,
+            String coleccion, short numeroDePaginas, BigDecimal precio, String autores, EstadoEnum estado,
+            short cantidad) {
+        this.nombre = nombre;
+        this.tematica = tematica;
+        this.color = color;
+        this.fechaVenta = fechaVenta;
+        this.editorial = editorial;
+        this.coleccion = coleccion;
+        this.numeroDePaginas = numeroDePaginas;
+        this.precio = precio;
+        this.autores = autores;
+        this.estado = estado;
+        this.cantidad = cantidad;
+    }
+
     public ComicDTO(String nombre, EstadoEnum estado, BigDecimal precio) {
-		this.nombre = nombre;
-		this.estado = estado;
-		this.precio = precio;
-	}
-    
+        this.nombre = nombre;
+        this.estado = estado;
+        this.precio = precio;
+    }
+
     public Long getId() {
         return this.id;
     }

@@ -1,7 +1,5 @@
 package com.hbt.semillero.bean;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -27,6 +25,7 @@ import com.hbt.semillero.poo.interfaces.IConsultarComicTamanioNombreLocal;
  * @author Leonardo Sanchez Camacho
  * @version 1.0
  */
+@Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class ConsultarComicTamanioNombreBean implements IConsultarComicTamanioNombreLocal {
 

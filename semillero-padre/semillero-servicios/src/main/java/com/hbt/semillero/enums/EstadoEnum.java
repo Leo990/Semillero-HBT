@@ -8,8 +8,8 @@ package com.hbt.semillero.enums;
  * @version 1.0
  */
 public enum EstadoEnum {
-    DISPONIBLE("activo"),
-    NO_DISPONIBLE("inactivo"),;
+    ACTIVO("activo"),
+    INACTIVO("inactivo"),;
 
     private String etiqueta;
 

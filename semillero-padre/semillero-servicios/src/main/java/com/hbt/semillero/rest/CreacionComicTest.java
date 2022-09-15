@@ -39,11 +39,11 @@ public class CreacionComicTest {
     
 
     public List<Comic> verificarComicsActivos(){
-        return verificarEstadoComics(EstadoEnum.DISPONIBLE);
+        return verificarEstadoComics(EstadoEnum.ACTIVO);
     }
     
     public List<Comic> verificarComicsInactivos(){
-        return verificarEstadoComics(EstadoEnum.NO_DISPONIBLE);
+        return verificarEstadoComics(EstadoEnum.INACTIVO);
     }
 
 
